@@ -1,0 +1,172 @@
+package tictactoe;
+
+//package dm550.tictactoe;
+
+/** represents a tic tac toe board of a given size */
+public class TTTBoard {
+
+	/**
+	 * 2-dimensional array representing the board coordinates are counted from
+	 * top-left (0,0) to bottom-right (size-1, size-1) board[x][y] == 0 signifies
+	 * free at position (x,y) board[x][y] == i for i > 0 signifies that Player i
+	 * made a move on (x,y)
+	 */
+	private int[][] board;
+
+	/** size of the (quadratic) board */
+	private int size;
+
+	/**
+	 * constructor for creating a copy of the board not needed in Part 1 - can be
+	 * viewed as an example
+	 */
+	public TTTBoard(TTTBoard original) {
+		this.size = original.size;
+		for (int y = 0; y < this.size; y++) {
+			for (int x = 0; x < this.size; x++) {
+				this.board[y][x] = original.board[y][x];
+			}
+		}
+	}
+
+	/** constructor for creating an empty board for a given number of players */
+	public TTTBoard(int numPlayers) {
+		this.size = numPlayers + 1;
+		this.board = new int[this.getSize()][this.getSize()];
+	}
+
+	/** checks whether the board is free at the given position */
+	public boolean isFree(Coordinate c) {
+		if (board[c.getX()][c.getY()] == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	/** returns the players that made a move on (x,y) or 0 if the positon is free */
+	public int getPlayer(Coordinate c) {
+		if (isFree(c) == false) {
+			return 0;
+		}
+		return (board[c.getX()][c.getY()]);
+	}
+
+	/**
+	 * record that a given player made a move at the given position checks that the
+	 * given positions is on the board checks that the player number is valid
+	 */
+	public void addMove(Coordinate c, int player) {
+		if (isFree(c) && player > 0 && player <= TTTGame.numPlayers && c.checkBoundaries(size, size) == true) {
+			board[c.getX()][c.getY()] = player;
+		} else {
+			throw new IllegalArgumentException("I cant let you do that David");
+		}
+	}
+
+	/**
+	 * returns true if, and only if, there are no more free positions on the board
+	 */
+	public boolean checkFull() {
+
+		if (turnCounter() > Math.pow((TTTGame.numPlayers + 1), 2))
+			return true;
+		else
+			;
+		return false;
+
+	}
+
+	public static int count = 0;
+
+	public int turnCounter() {
+		count++;
+		return count;
+	}
+
+	/**
+	 * returns 0 if no player has won (yet) otherwise returns the number of the
+	 * player that has three in a row
+	 */
+
+	public int checkWinning() {
+		int result = 0;
+		for (int i = 0; i < getSize() - 2; i++)
+			for (int j = 0; j < getSize(); j++) {
+				Coordinate coloum = new XYCoordinate(i, j);
+				result = checkSequence(coloum, 0, 1); // Dette der rykker fra 1 ned for hver check
+				if (result != 0) {
+					return result;
+				}
+			}
+		for (int j = 0; j < getSize() - 2; j++)
+			for (int i = 0; i < getSize(); i++) {
+				Coordinate row = new XYCoordinate(i, j); // Dette rykker 1 hen for hver check
+				result = checkSequence(row, 1, 0);
+				if (result != 0) {
+					return result;
+
+				}
+
+			}
+		for (int i = 0; i < getSize() - 2; i++)
+			for (int j = 0; j < getSize() - 2; j++) {
+				Coordinate diaDown = new XYCoordinate(i, j); // Dette rykker en hen og en ned
+				result = checkSequence(diaDown, 1, 1);
+				if (result != 0) {
+					return result;
+
+				}
+
+			}
+		for (int i = 0; i < getSize() - 2; i++)
+			for (int j = getSize() - 1; j > 1; j--) {
+				Coordinate diaUp = new XYCoordinate(i, j); // Dette rykker en hen og en op
+				result = checkSequence(diaUp, 1, -1);
+				if (result != 0) {
+					return result;
+
+				}
+
+			}
+		return result;
+	}
+
+	/** internal helper function checking one row, column, or diagonal */
+	private int checkSequence(Coordinate start, int dx, int dy) {
+		
+		int playerMove = board[start.getX()][start.getY()];
+			if (!this.isFree(start)) {  
+				for (int i = getSize(); i > 0; i--)
+					start = start.shift(dx, dy);
+				int check2 = board[start.getX()][start.getY()];
+				if (check2 == playerMove);
+				{
+					return playerMove;
+				}
+			}
+
+		
+		return 0;
+	}
+	// throw new UnsupportedOperationException();
+
+	/** getter for size of the board */
+	public int getSize() {
+		return this.size;
+	}
+
+	/**
+	 * pretty printing of the board usefule for debugging purposes
+	 */
+	public String toString() {
+		String result = "";
+		for (int y = 0; y < this.size; y++) {
+			for (int x = 0; x < this.size; x++) {
+				result += this.board[y][x] + " ";
+			}
+			result += "\n";
+		}
+		return result;
+	}
+
+}
