@@ -89,18 +89,14 @@ public class TTTBoard {
 	 */
 
 	public int checkWinning() {
-		double row;
-		double col;
-		double diaDown;
-		double diaUp;
 		
 		for (int i = 0; i < getSize(); i++) {// row check first the coloum.
 			for (int j = 2; j < getSize(); j++) {
-				row = Math.pow((board[i][j - 2] * board[i][j - 1] * board[i][j]), 1.0 / 3);
+				double row = Math.pow((board[i][j - 2] * board[i][j - 1] * board[i][j]), 1.0 / 3);
 				if (row == Math.floor(row) && row!=0) {
 					return (int) row;
 				}
-				col = Math.pow((board[j - 2][i] * board[j - 1][i] * board[j][i]), 1.0 / 3);
+				double col = Math.pow((board[j - 2][i] * board[j - 1][i] * board[j][i]), 1.0 / 3);
 				if (col == Math.floor(col) && col!=0) {
 					return (int) col;
 				}
@@ -109,7 +105,7 @@ public class TTTBoard {
 		}
 		for (int i = 0; i < getSize()-2; i++) {// diaDown
 			for (int j = 0; j < getSize()-2; j++) {
-				diaDown = Math.pow((board[i][j] * board[i+1][j+1] * board[i+2][j+2]), 1.0 / 3);
+				double diaDown = Math.pow((board[i][j] * board[i+1][j+1] * board[i+2][j+2]), 1.0 / 3);
 				if (diaDown == Math.floor(diaDown) && diaDown!=0) {
 					return (int) diaDown;
 				}
@@ -117,7 +113,7 @@ public class TTTBoard {
 		}
 		for (int i = getSize()-1; i >=2; i--) {// diaUp
 			for (int j = 0; j < getSize()-2; j++) {
-				diaUp = Math.pow((board[i][j] * board[i-1][j+1] * board[i-2][j+2]), 1.0 / 3);
+				double diaUp = Math.pow((board[i][j] * board[i-1][j+1] * board[i-2][j+2]), 1.0 / 3);
 				if (diaUp == Math.floor(diaUp) && diaUp!=0) {
 					return (int) diaUp;
 				}
