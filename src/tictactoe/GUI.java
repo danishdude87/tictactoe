@@ -14,6 +14,7 @@ public class GUI extends JFrame implements UserInterface, MouseListener {
   public static void main(String[] args) {
       GUI ui = new GUI();
       int numPlayers = ui.getParameter("number of players",2,6);
+      TTTBoard.turnCounter();
       Game game = new TTTGame(numPlayers);
       ui.startGame(game);
   }

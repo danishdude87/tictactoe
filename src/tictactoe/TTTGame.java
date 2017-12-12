@@ -66,7 +66,7 @@ public class TTTGame implements Game {
   public void checkResult() {
 	  int winner = this.board.checkWinning();
       if (winner > 0) {
-          this.ui.showResult("Player "+winner+" wins!");
+          this.ui.showResult("Player "+winner+" win!");
       }
       if (this.board.checkFull()) {
           this.ui.showResult("This is a DRAW!");

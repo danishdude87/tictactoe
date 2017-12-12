@@ -78,7 +78,7 @@ public class TTTBoard {
 
 	public static int count = 0;
 
-	public int turnCounter() {
+	public static int turnCounter() {
 		count++;
 		return count;
 	}
