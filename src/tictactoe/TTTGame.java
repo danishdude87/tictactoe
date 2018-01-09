@@ -65,10 +65,10 @@ public class TTTGame implements Game {
   @Override
   public void checkResult() {
 	  int winner = this.board.checkWinning();
-      if (winner > 0) {
+	  if (winner > 0) {
           this.ui.showResult("Player "+winner+" win!");
       }
-      if (this.board.checkFull()) {
+	  else if (this.board.checkFull()) {
           this.ui.showResult("This is a DRAW!");
       }
   }
@@ -90,5 +90,5 @@ public class TTTGame implements Game {
       return "Board before Player "+this.currentPlayer+" of "+this.numPlayers+"'s turn:\n"+this.board.toString();
   }
   
-
+//github check 
 }
