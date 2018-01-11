@@ -89,37 +89,43 @@ public class TTTBoard {
 	 */
 
 	public int checkWinning() {
-		
-		for (int i = 0; i < getSize(); i++) {// row check first the coloum.
+
+		for (int i = 0; i < getSize(); i++) {// coloum check first then row
 			for (int j = 2; j < getSize(); j++) {
-				double row = Math.pow(((board[i][j - 2]+2) * (board[i][j - 1]+2) * (board[i][j]+2)), 1.0 / 3)-2;
-				if (row == Math.floor(row) && row!=0) {
-					return (int) row;
-				}
-				double col = Math.pow(((board[j - 2][i]+2) * (board[j - 1][i]+2) * (board[j][i]+2)), 1.0 / 3)-2;
-				if (col == Math.floor(col) && col!=0) {
+
+				double col = Math.pow((((board[i][j - 2])) * ((board[i][j - 1])) * ((board[i][j]))), 1.0 / 3);
+
+				if (col == Math.floor(col) && col != 0.0) {
 					return (int) col;
 				}
-
+				double row = Math.pow((((board[j - 2][i])) * ((board[j - 1][i])) * ((board[j][i]))), 1.0 / 3);
+				if (row == Math.floor(row) && row != 0.0) {
+					return (int) row;
+				}
 			}
 		}
-		for (int i = 0; i < getSize()-2; i++) {// diaDown
-			for (int j = 0; j < getSize()-2; j++) {
-				double diaDown = Math.pow(((board[i][j]+2) * (board[i+1][j+1]+2) * (board[i+2][j+2]+2)), 1.0 / 3)-2;
-				if (diaDown == Math.floor(diaDown) && diaDown!=0) {
+		for (
+
+				int i = 0; i <
+
+				getSize() - 2; i++) {// diaDown
+			for (int j = 0; j < getSize() - 2; j++) {
+				double diaDown = Math.pow((((board[i][j])) * ((board[i + 1][j + 1])) * ((board[i + 2][j + 2]))),
+						1.0 / 3);
+				if (diaDown == Math.floor(diaDown) && diaDown != 0.0) {
 					return (int) diaDown;
 				}
 			}
 		}
-		for (int i = getSize()-1; i >=2; i--) {// diaUp
-			for (int j = 0; j < getSize()-2; j++) {
-				double diaUp = Math.pow(((board[i][j]+2) * (board[i-1][j+1]+2) * (board[i-2][j+2]+2)), 1.0 / 3)-2;
-				if (diaUp == Math.floor(diaUp) && diaUp!=0) {
+		for (int i = getSize() - 1; i >= 2; i--) {// diaUp
+			for (int j = 0; j < getSize() - 2; j++) {
+				double diaUp = Math.pow((((board[i][j])) * ((board[i - 1][j + 1])) * ((board[i - 2][j + 2]))), 1.0 / 3);
+				if (diaUp == Math.floor(diaUp) && diaUp != 0.0) {
 					return (int) diaUp;
 				}
 
 			}
-		}		
+		}
 		return 0;
 	}
 
